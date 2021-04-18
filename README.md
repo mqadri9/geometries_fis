@@ -4,18 +4,18 @@ cd libigl/
 mkdir build
 cd build
 cmake -DLIBIGL_WITH_CGAL=ON ../ -DCMAKE_BUILD_TYPE=Release          -DLIBIGL_USE_STATIC_LIBRARY=ON          -DCMAKE_INSTALL_PREFIX=/usr/local/
-Make -j12
- Sudo make install
+make -j12
+sudo make install
 
-Cd libigl/external
-Cd cgal
-Mkdir build
+cd libigl/external
+cd cgal
+mkdir build
 Cmake ..
-Make 
-Sudo make install
+make -j12
+sudo make install
 
 
-Cd /home/mqadri/libigl
+cd /home/mqadri/libigl (or where you cloned libigl library)
 sudo cp -r ./include/igl/*.cpp /usr/local/include/igl/
 
 
