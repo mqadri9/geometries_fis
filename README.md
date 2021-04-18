@@ -19,7 +19,7 @@ cd /home/mqadri/libigl (or where you cloned libigl library)
 
 sudo cp -r ./include/igl/*.cpp /usr/local/include/igl/
 
-=========== CIGAL ====================
+=========== CGAL ====================
 
 cd libigl/external
 
