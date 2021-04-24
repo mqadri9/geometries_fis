@@ -4,17 +4,55 @@
 #include <vector>
 #include <map>
 #include <tuple>
+#include <numeric>
+#include "cnpy.h"
+#include <complex>
+#include <cstdlib>
+#include <iostream>
+#include <map>
+#include <string>
+#include "SwStXtd.h"
 
 using namespace std;
 
-typedef std::vector<std::vector<double>> FA;
-typedef std::vector<std::tuple<FA, double>> FIA;
+template <typename T>
+void print_vector(T a){
+      for(int i=0; i < a.size(); i++)
+            cout << a.at(i) << ' '; 
+      cout << endl;
+}
 
+struct leg_ik_out {
+      float Max_X;
+      float Min_X;
+      float theta1 = -99;
+      float theta2 = -99;
+};
 
-std::map<int, FA> FFS_stack;
-std::map<std::string, FIA> pFIS_stack;
+vector<float> diff(vector<float> a) {
+      vector<float> out;
+      for(size_t i=0; i< a.size()-1; i++) {
+            out.push_back(a[i+1]-a[i]);
+      }
+      return out;
+}
 
+float mean(vector<float> a) {
+      float sum_of_elems = std::accumulate(a.begin(), a.end(), 0.0);
+      return sum_of_elems/a.size();
+}
 
+vector<float> linspace(float  a, float b, int num)
+{
+      // create a vector of length num
+      vector<float> v(num);            
+      // now assign the values to the vector
+      for (int i = 0; i < num; i++)
+      {     
+            v[i] = a + i * ( (b - a) / (num-1) );
+      }
+      return v;
+}
 
 void load_data_FFS(std::map<int, FA> *FFS_stack) 
 {
