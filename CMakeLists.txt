@@ -39,6 +39,10 @@ find_path(EIGEN_INCLUDE_DIR Eigen/Core
 # Suppress Eigen's warning by adding it to the system's library
 include_directories(SYSTEM "${EIGEN_INCLUDE_DIR}")
 
+SET(CMAKE_FIND_LIBRARY_SUFFIXES ".a")
+find_package(ZLIB REQUIRED) 
+include_directories(${ZLIB_INCLUDE_DIRS})
+set(EXTERNAL_LIBS ${EXTERNAL_LIBS} ${ZLIB_LIBRARIES})
 
 find_package(Boost COMPONENTS thread filesystem system program_options date_time REQUIRED)
 
@@ -47,8 +51,14 @@ find_package(Boost COMPONENTS thread filesystem system program_options date_time
 #    find_package(Boost COMPONENTS thread filesystem system program_options date_time chrono REQUIRED)
 #endif (Boost_MINOR_VERSION GREATER 47)
 include_directories(${Boost_INCLUDE_DIRS})
+
 set(EXTERNAL_LIBS ${EXTERNAL_LIBS} ${Boost_LIBRARIES})
 
-
-add_executable(test_eigen ./src/test_eigen.cpp)
+add_executable(test_eigen ./src/test_eigen.cpp ./src/cnpy.cpp ./src/cnpy.h)
 target_link_libraries(test_eigen ${EXTERNAL_LIBS} CGAL::CGAL)
+
+add_executable(test_cnpy ./src/tests/test_cnpy.cpp ./src/cnpy.cpp ./src/cnpy.h)
+target_link_libraries(test_cnpy ${EXTERNAL_LIBS} CGAL::CGAL)
+
+add_executable(generate_data ./src/generate_data.cpp ./src/cnpy.cpp ./src/cnpy.h ./src/generate_data.h)
+target_link_libraries(generate_data ${EXTERNAL_LIBS} CGAL::CGAL)
