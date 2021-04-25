@@ -1,26 +1,10 @@
 
 #ifndef GENDATA_H_
 #define GENDATA_H_
-#include <vector>
-#include <map>
-#include <tuple>
-#include <numeric>
-#include "cnpy.h"
-#include <complex>
-#include <cstdlib>
-#include <iostream>
-#include <map>
-#include <string>
+#include "utils.h"
 #include "SwStXtd.h"
 
 using namespace std;
-
-template <typename T>
-void print_vector(T a){
-      for(int i=0; i < a.size(); i++)
-            cout << a.at(i) << ' '; 
-      cout << endl;
-}
 
 struct leg_ik_out {
       float Max_X;
@@ -29,30 +13,6 @@ struct leg_ik_out {
       float theta2 = -99;
 };
 
-vector<float> diff(vector<float> a) {
-      vector<float> out;
-      for(size_t i=0; i< a.size()-1; i++) {
-            out.push_back(a[i+1]-a[i]);
-      }
-      return out;
-}
-
-float mean(vector<float> a) {
-      float sum_of_elems = std::accumulate(a.begin(), a.end(), 0.0);
-      return sum_of_elems/a.size();
-}
-
-vector<float> linspace(float  a, float b, int num)
-{
-      // create a vector of length num
-      vector<float> v(num);            
-      // now assign the values to the vector
-      for (int i = 0; i < num; i++)
-      {     
-            v[i] = a + i * ( (b - a) / (num-1) );
-      }
-      return v;
-}
 
 void load_data_FFS(std::map<int, FA> *FFS_stack) 
 {

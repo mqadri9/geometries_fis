@@ -54,13 +54,13 @@ include_directories(${Boost_INCLUDE_DIRS})
 
 set(EXTERNAL_LIBS ${EXTERNAL_LIBS} ${Boost_LIBRARIES})
 
-#add_executable(test_eigen ./src/test_eigen.cpp ./src/cnpy.cpp ./src/cnpy.h)
-#target_link_libraries(test_eigen ${EXTERNAL_LIBS} CGAL::CGAL)
+add_executable(test_eigen ./src/test_eigen.cpp ./src/cnpy.cpp ./src/cnpy.h)
+target_link_libraries(test_eigen ${EXTERNAL_LIBS} CGAL::CGAL)
 
 add_executable(test_cnpy ./src/tests/test_cnpy.cpp ./src/cnpy.cpp ./src/cnpy.h)
 target_link_libraries(test_cnpy ${EXTERNAL_LIBS} CGAL::CGAL)
 
 add_executable(generate_data ./src/generate_data.cpp ./src/cnpy.cpp ./src/cnpy.h ./src/generate_data.h 
-               ../src/SwStXtd.cpp ../src/SwStXtd.h)
+               ../src/SwStXtd.cpp ../src/SwStXtd.h ../src/utils.h ../src/utils.cpp)
 
 target_link_libraries(generate_data ${EXTERNAL_LIBS} CGAL::CGAL)

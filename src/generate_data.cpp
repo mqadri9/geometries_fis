@@ -1,4 +1,3 @@
-
 #include "generate_data.h"
 
 
@@ -39,19 +38,29 @@ int main()
     float x_swing = -0.15;
     float x_td_nom = 0.15;
     int NUM_LEGS = 4;
-    vector<float> x_td_old(NUM_LEGS, x_td_nom);
+    
     float vb = 0.6;
     float vx_des = 0.6;
     float internode_dx = mean(diff(nodes));
 
     int trouble = 0;
     int t = 1;
-    vector<float> leg_command_in(NUM_LEGS, 1);
+    vector<bool> leg_command_in(NUM_LEGS, 0);
     int lesion = 0;
-    vector<float> lesion_legs (NUM_LEGS, 0);
+
+    vector<float> x_td_old(NUM_LEGS, x_td_nom);
+    vector<bool> lesion_legs (NUM_LEGS, false);
     vector<float> lesion_leg_xtd(NUM_LEGS, x_td_nom);
     vector<float> lesion_leg_xswing(NUM_LEGS, x_swing);
-    
+
+    // Tests
+    //lesion_leg_xswing[0] = lesion_leg_xswing[0]*2;
+    //lesion_legs[0] = true;
+    lesion = 1;
+
+    leg_command_in[0] = 1;
+    leg_command_in[3] = 1;
+
     Sw_St_Xtd_out _gait = Sw_St_Xtd(pFIS_stack,
                                     FFS_stack,
                                     nodes,
@@ -72,7 +81,11 @@ int main()
                                     lesion_legs,
                                     lesion_leg_xtd,
                                     lesion_leg_xswing);
-    cout << _gait.leg_command[0] << endl;
-    cout << _gait.swing_state_flag[0] << endl;
-    cout << _gait.x_td_out[0] << endl;
+    
+    cout << "=====leg_command=====" << endl;
+    print_vector(_gait.leg_command);
+    cout << "=====swing_state_flag=====" << endl;
+    print_vector(_gait.swing_state_flag);
+    cout << "=====x_td_out=====" << endl;
+    print_vector(_gait.x_td_out);
 }

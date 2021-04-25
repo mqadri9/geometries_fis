@@ -28,7 +28,7 @@ typedef std::vector<std::tuple<FA, double>> FIA;
 
 struct Sw_St_Xtd_out {
 	vector<bool> swing_state_flag;
-	vector<int> leg_command;
+	vector<bool> leg_command;
 	vector<float> x_td_out;
 };
 
@@ -55,7 +55,11 @@ void print_vector(T a){
             cout << a.at(i) << ' '; 
       cout << endl;
 }
-
+template <typename T>
+void print_vector2d(T a){
+      for(int i=0; i < a.size(); i++)
+            print_vector(a[i]);
+}
 
 template <typename T>
 bool find(T a){
@@ -63,6 +67,26 @@ bool find(T a){
       for(int i=0; i < a.size(); i++)
             if(a[i] >= 0) return true; 
       return false;
+}
+
+template <typename T>
+bool any(vector<T> v, T val) {
+      for(int i =0; i< v.size(); i++) {
+            if(v[i] == val) {
+                  return true;
+            }
+      }
+      return false;
+}
+
+template <typename T>
+bool all(vector<T> v, T val) {
+      for(int i =0; i< v.size(); i++) {
+            if(v[i] != val) {
+               return false;
+            }
+      }
+      return true;
 }
 
 
@@ -79,4 +103,7 @@ getpFIS_at_x_from_pFIS_stack_out getpFIS_at_x_from_pFIS_stack(std::map<std::stri
 
 Polygon_2 FA_to_cgalPolygon(FA pFIS);
 Polygon_2 cgalPoint2_to_Polygon(vector<Point_2> v);
+vector<Point_2> FA_to_cgalPoint2(vector<vector<double>> v);
+bool x_marg_safety_cond_f(double x, double wkspace_margin, vector<float> nodes);
+bool x_marg_safety_cond_b(double x, double wkspace_margin, vector<float> nodes);
 #endif
