@@ -27,6 +27,8 @@ cd cgal
 
 mkdir build
 
+cd build
+
 cmake ..
 
 make -j12
